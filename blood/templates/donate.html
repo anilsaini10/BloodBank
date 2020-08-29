@@ -7,31 +7,21 @@
 {% load static %}
 
 <style>
-
-.container1{
-  margin: 10px;
-  margin-top: 20px;
-  padding: 15px;
-  width: 50%;
-  
-  /* border: 3px solid black;
-  border-radius: 20px; */
-}
-
   
 </style>
   <div >
     {% for allBloodNeedPerson in AllBloodNeedPerson %}
-    <div class="container1">
+    <div class="container">
      
       <h3 class="mb-1">Name : {{allBloodNeedPerson.person_name}}</h3>
       <small>Gender : {{allBloodNeedPerson.person_gender}}</small><br>
       <small>Blood Group: {{allBloodNeedPerson.person_bloodGroup}}</small><br>
-      <small>Date amd Time of donation</small>
+      <small>Requested On: {{allBloodNeedPerson.timestamp}}</small>
       <a class="" href="{% url 'persondetails' allBloodNeedPerson.id %}">More Detail</a>
     </a>
   </div>
- 
+    {% empty %}
+    <p class="lead">No Records!</p>
     {% endfor %}
 </div>
 

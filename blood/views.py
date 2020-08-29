@@ -3,13 +3,9 @@ from .models import NeedBlood, DonateBlood, GotBlood
 from django.contrib.auth import authenticate , login ,logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404 ,HttpResponseForbidden
 from django.core.mail import BadHeaderError
 from django.core.mail import send_mail
-
-
-# Create your views here.
-
 
 def home(request):
     return render(request , 'home.html')
@@ -92,7 +88,7 @@ def needBlood(request):
         gender= request.POST.get('gender')
         bloodGroup= request.POST.get('bloodGroup')
 
-        need_blood= NeedBlood.objects.create(person_name= name,person_email= email,person_mobileNumber=mobile_number,
+        need_blood= NeedBlood.objects.create(user=request.user,person_name= name,person_email= email,person_mobileNumber=mobile_number,
                               person_age = age, person_reason= reason, person_address= address, 
                              person_gender = gender, person_bloodGroup= bloodGroup)
         need_blood.save()
@@ -131,9 +127,11 @@ def handleSignUp(request):
         myUser = User.objects.create_user(username, email ,password1)
         myUser.save()
         messages.success(request, 'You Are login successfully')
+        user = authenticate(username =username, password = password1)
+        login(request,user)
         return redirect('home')
     else:
-        return render(request , 'signUp.html')
+        return render(request , 'signup.html')
 
 def handleLogin(request):
     if request.method =="POST":
@@ -157,8 +155,6 @@ def handleLogout(request):
     messages.success(request,"logout successfully")
     return redirect('home')
     
-
-
 def persondetails(request,my_id):
     try:
         allBloodNeedPerson = NeedBlood.objects.get(id= my_id)
@@ -168,21 +164,10 @@ def persondetails(request,my_id):
     context = {'personName': allBloodNeedPerson}
     if request.method=='POST':
         allBloodNeedPerson = NeedBlood.objects.get(id= my_id)
+        if request.user != allBloodNeedPerson.user:
+            raise HttpResponseForbidden
         allBloodNeedPerson.delete()
+        return redirect('donate')
         messages.success(request,"post is deleted successfully")
 
     return render(request,'personDetails.html', context)
-
-
-
-
-
-
-# send_mail(
-#     'Subject here',
-#     'Here is the message.',
-#     'from@example.com',
-#     ['to@example.com'],
-#     fail_silently=False,
-# )
-# send_mail.send()
