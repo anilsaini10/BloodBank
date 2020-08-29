@@ -11,8 +11,10 @@
         <small>Gender : {{reciever.person_gender}}</small><br>
         <small>Blood Group: {{reciever.person_bloodGroup}}</small><br>
         <small>Reason: {{reciever.person_reason}}</small><br>
-        <small>Date amd Time of donation</small>
+        <small>Received On: {{receiver.timestamp}}</small>
     </div>
+    {% empty %}
+    <p class="lead">No Records!</p>
     {% endfor %}
      
 {% endblock %}  

@@ -12,8 +12,10 @@
           <h5 class="mb-1">Name : {{alldonater.person_name}}</h5>
           <small>Gender : {{alldonater.person_gender}}</small><br>
           <small>Blood Group: {{alldonater.person_bloodGroup}}</small><br>
-          <small>Date amd Time of donation</small>
+          <small>Donated On: {{alldonater.timestamp}}</small>
     </div>
+    {% empty %}
+    <p class="lead">No Records!</p>
   {% endfor %}
 
 

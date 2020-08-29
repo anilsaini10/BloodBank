@@ -19,11 +19,11 @@
    
 </div>
 
- 
+  {% if request.user == personName.user %}
    <form action="{% url 'persondetails' personName.id  %}" method="POST">
     {% csrf_token %}
-    <input type="submit" value="delete">
-    
+    <input class="btn btn-danger" type="submit" value="delete">
   </form>
+  {% endif %}
 
 {% endblock %}

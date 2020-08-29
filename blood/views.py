@@ -3,7 +3,7 @@ from .models import NeedBlood, DonateBlood, GotBlood
 from django.contrib.auth import authenticate , login ,logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404 ,HttpResponseForbidden
 from django.core.mail import BadHeaderError
 from django.core.mail import send_mail
 
@@ -58,20 +58,20 @@ def donateform(request,my_id):
                                                     person_bloodGroup= allBloodNeedPerson.person_bloodGroup,
                                                     person_reason= allBloodNeedPerson.person_reason)
  
-        send_mail(
-            'Blood Bank',
-            'Your form have been submitted succssfully! \n Thanks for support Neddy People',
-            'anilsainisukhpura@gmail.com',
-            [email],
-            fail_silently=False,
-             )
-        send_mail(
-            'Blood Bank',
-             "Congratulation someone is ready to give you blood",
-            'anilsainisukhpura@gmail.com',
-            [allBloodNeedPerson.person_email],
-            fail_silently=False,
-             )
+        # send_mail(
+        #     'Blood Bank',
+        #     'Your form have been submitted succssfully! \n Thanks for support Neddy People',
+        #     'anilsainisukhpura@gmail.com',
+        #     [email],
+        #     fail_silently=False,
+        #      )
+        # send_mail(
+        #     'Blood Bank',
+        #      "Congratulation someone is ready to give you blood",
+        #     'anilsainisukhpura@gmail.com',
+        #     [allBloodNeedPerson.person_email],
+        #     fail_silently=False,
+        #      )
         allBloodNeedPerson.delete()
         
         messages.success(request, "Your Form Has Been Submmited")
@@ -88,18 +88,18 @@ def needBlood(request):
         gender= request.POST.get('gender')
         bloodGroup= request.POST.get('bloodGroup')
 
-        need_blood= NeedBlood.objects.create(person_name= name,person_email= email,person_mobileNumber=mobile_number,
+        need_blood= NeedBlood.objects.create(user=request.user,person_name= name,person_email= email,person_mobileNumber=mobile_number,
                               person_age = age, person_reason= reason, person_address= address, 
                              person_gender = gender, person_bloodGroup= bloodGroup)
         need_blood.save()
 
-        send_mail(
-            'Blood Bank',
-            'Your Blood Request has been submited! We hope you will get blood soon',
-            'anilsainisukhpura@gmail.com',
-            [email],
-            fail_silently=False,
-             )
+        # send_mail(
+        #     'Blood Bank',
+        #     'Your Blood Request has been submited! We hope you will get blood soon',
+        #     'anilsainisukhpura@gmail.com',
+        #     [email],
+        #     fail_silently=False,
+        #      )
 
         messages.success(request, "Your Form Has Been Submmited succesfully")
 
@@ -162,7 +162,10 @@ def persondetails(request,my_id):
     context = {'personName': allBloodNeedPerson}
     if request.method=='POST':
         allBloodNeedPerson = NeedBlood.objects.get(id= my_id)
+        if request.user != allBloodNeedPerson.user:
+            raise HttpResponseForbidden
         allBloodNeedPerson.delete()
+        return redirect('donate')
         messages.success(request,"post is deleted successfully")
 
     return render(request,'personDetails.html', context)

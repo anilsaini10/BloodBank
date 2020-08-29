@@ -16,11 +16,12 @@
       <h3 class="mb-1">Name : {{allBloodNeedPerson.person_name}}</h3>
       <small>Gender : {{allBloodNeedPerson.person_gender}}</small><br>
       <small>Blood Group: {{allBloodNeedPerson.person_bloodGroup}}</small><br>
-      <small>Date amd Time of donation</small>
+      <small>Requested On: {{allBloodNeedPerson.timestamp}}</small>
       <a class="" href="{% url 'persondetails' allBloodNeedPerson.id %}">More Detail</a>
     </a>
   </div>
- 
+    {% empty %}
+    <p class="lead">No Records!</p>
     {% endfor %}
 </div>
 
