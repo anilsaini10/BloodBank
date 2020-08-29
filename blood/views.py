@@ -58,20 +58,20 @@ def donateform(request,my_id):
                                                     person_bloodGroup= allBloodNeedPerson.person_bloodGroup,
                                                     person_reason= allBloodNeedPerson.person_reason)
  
-        # send_mail(
-        #     'Blood Bank',
-        #     'Your form have been submitted succssfully! \n Thanks for support Neddy People',
-        #     'anilsainisukhpura@gmail.com',
-        #     [email],
-        #     fail_silently=False,
-        #      )
-        # send_mail(
-        #     'Blood Bank',
-        #      "Congratulation someone is ready to give you blood",
-        #     'anilsainisukhpura@gmail.com',
-        #     [allBloodNeedPerson.person_email],
-        #     fail_silently=False,
-        #      )
+        send_mail(
+            'Blood Bank',
+            'Your form have been submitted succssfully! \n Thanks for support Neddy People',
+            'anilsainisukhpura@gmail.com',
+            [email],
+            fail_silently=False,
+             )
+        send_mail(
+            'Blood Bank',
+             "Congratulation someone is ready to give you blood",
+            'anilsainisukhpura@gmail.com',
+            [allBloodNeedPerson.person_email],
+            fail_silently=False,
+             )
         allBloodNeedPerson.delete()
         
         messages.success(request, "Your Form Has Been Submmited")
@@ -93,13 +93,13 @@ def needBlood(request):
                              person_gender = gender, person_bloodGroup= bloodGroup)
         need_blood.save()
 
-        # send_mail(
-        #     'Blood Bank',
-        #     'Your Blood Request has been submited! We hope you will get blood soon',
-        #     'anilsainisukhpura@gmail.com',
-        #     [email],
-        #     fail_silently=False,
-        #      )
+        send_mail(
+            'Blood Bank',
+            'Your Blood Request has been submited! We hope you will get blood soon',
+            'anilsainisukhpura@gmail.com',
+            [email],
+            fail_silently=False,
+             )
 
         messages.success(request, "Your Form Has Been Submmited succesfully")
 
@@ -127,6 +127,8 @@ def handleSignUp(request):
         myUser = User.objects.create_user(username, email ,password1)
         myUser.save()
         messages.success(request, 'You Are login successfully')
+        user = authenticate(username =username, password = password1)
+        login(request,user)
         return redirect('home')
     else:
         return render(request , 'signup.html')
