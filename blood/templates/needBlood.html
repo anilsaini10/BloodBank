@@ -6,47 +6,15 @@
 {% load static %}
 
 <style>
-   /* body{
+    body{
     background-image: url("{% static 'img/2.jpg' %}");
     background-repeat: no-repeat;
         background-size: cover;
-        opacity: 0.8;
- 
-} */
-
-    .container{
-        /* background-image: url("{% static 'img/5.jpg' %}"); */
-       
-        border: 3px solid red;
-        width: 60%;
-        margin: 130px;
-        padding: 40px;
-        border-radius: 50px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        
-    }
-    .a input {
-        margin: 10px;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        height: 100%;
-        font-size: 25px;
-        border-radius: 20px;
-    }
-    .submit{
-        border: 2px solid black;
-        border-radius: 10px;
-        font-size: 20px;
-        
-    }
-   
-
-    
+        opacity: 0.8; 
+    }  
 </style>
-<div class="container">
+
+<div class="container form-donate">
     <h1>Fill Your Details Here</h1>
     <form action="{% url 'needBlood' %}" method="POST">
         {% csrf_token %}
@@ -110,14 +78,10 @@
         {% if user.is_authenticated %}
         <input type="submit" class="submit" value="submit">
      {% else %}
-     <h4>Need to SignIn </h4>
+     <h4>Need to SignIn</h4>
           <a class="btn btn-primary mx-2" href="{% url 'handleLogin' %}">Login</a>
           <a class="btn btn-primary" href="{% url 'handleSignUp' %}">Sign Up</a>
       {% endif %}
-       
-        <!-- <input type="submit" class="submit" value="submit"> -->
-        <!-- <input type="submit" class="submit">submit</input>  -->
-
     </form>
 </div>
 {% endblock %}

@@ -3,17 +3,11 @@
 {% block recieveractive %} active{% endblock recieveractive %}
 {% block body %}
 
-<style>
-    .container1{
-        margin: 15px;
-    }
-</style>
 <h3>Blood Reciever Details</h3>
 {% for reciever in BloodReciever %}
-    <div class="container1">
+    <div class="container">
         <h6> Name : {{reciever.person_name}} </h6>
-     
-      
+
         <small>Gender : {{reciever.person_gender}}</small><br>
         <small>Blood Group: {{reciever.person_bloodGroup}}</small><br>
         <small>Reason: {{reciever.person_reason}}</small><br>
@@ -21,4 +15,4 @@
     </div>
     {% endfor %}
      
-{% endblock %}
+{% endblock %}  

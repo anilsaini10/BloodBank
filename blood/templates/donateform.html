@@ -1,45 +1,17 @@
 {% extends 'base.html' %}
 {% block title %} donateform {% endblock %}
 {% block body %}
-<style>
 
-    .container{
-        border: 3px solid red;
-        width: 60%;
-        margin: 50px;
-        padding: 15px;
-        border-radius: 50px;
-        
-    }
+<!-- <h3>Thanks For Help Needy People</h3> -->
+<div class="container form-donate">
 
-    .container1{
-   
-        width: 60%;
-        margin: 15px;
-      
-        
-    }
-    .a input {
-        margin: 10px;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        height: 100%;
-        font-size: 25px;
-        border-radius: 20px;
-    }
-</style>
+    <h6>Donate To Mr./Mrs. : {{personName.person_name}}</h6>
+    <h6>Blood Group : {{personName.person_bloodGroup}}</h6>
+    <h6>Email : {{personName.person_email}}</h6>
+    <h6>Conatct Number : {{personName.person_mobileNumber}}</h6>
+</div>
 
-    <!-- <h3>Thanks For Help Needy People</h3> -->
-    <div class="container1">
-
-        <h6>Donate To Mr./Mrs. : {{personName.person_name}}</h6>
-        <h6>Blood Group : {{personName.person_bloodGroup}}</h6>
-        <h6>Email : {{personName.person_email}}</h6>
-        <h6>Conatct Number : {{personName.person_mobileNumber}}</h6>
-    </div>
-
-<div class="container">
+<div class="container form-donate">
     <h1>Fill Your Details Here</h1>
     <form action="{% url 'donateform' personName.id %}" method="POST">
         {% csrf_token %}
@@ -99,7 +71,7 @@
 
        
     {% if user.is_authenticated %}
-        <input type="submit" class="submit" value="submit">
+        <input type="submit" class="submit btn btn-primary" value="submit">
     {% else %}
           <a class="btn btn-primary mx-2" href="{% url 'handleLogin' %}">Login</a>
           <a class="btn btn-primary" href="{% url 'handleSignUp' %}">Sign Up</a>

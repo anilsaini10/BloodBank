@@ -7,10 +7,6 @@ from django.http import Http404
 from django.core.mail import BadHeaderError
 from django.core.mail import send_mail
 
-
-# Create your views here.
-
-
 def home(request):
     return render(request , 'home.html')
 
@@ -133,7 +129,7 @@ def handleSignUp(request):
         messages.success(request, 'You Are login successfully')
         return redirect('home')
     else:
-        return render(request , 'signUp.html')
+        return render(request , 'signup.html')
 
 def handleLogin(request):
     if request.method =="POST":
@@ -157,8 +153,6 @@ def handleLogout(request):
     messages.success(request,"logout successfully")
     return redirect('home')
     
-
-
 def persondetails(request,my_id):
     try:
         allBloodNeedPerson = NeedBlood.objects.get(id= my_id)
@@ -172,17 +166,3 @@ def persondetails(request,my_id):
         messages.success(request,"post is deleted successfully")
 
     return render(request,'personDetails.html', context)
-
-
-
-
-
-
-# send_mail(
-#     'Subject here',
-#     'Here is the message.',
-#     'from@example.com',
-#     ['to@example.com'],
-#     fail_silently=False,
-# )
-# send_mail.send()

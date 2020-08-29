@@ -6,9 +6,17 @@
 {% block body %}
 {% load static %}
 
+<style>
+    body{
+    background-image: url("{% static 'img/2.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8; 
+    }  
+</style>
 
 <h1>Blood Bank</h1>
-
+<p class="lead">Online Blood-Bank through which one can request or donate Blood.</p>
 
 {% endblock %}
 
