@@ -21,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cs)+qf0)eg+bpq7@c(isg3i5^f8muu=hm95-r^&di0ziko3s*('
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cs)+qf0)eg+bpq7@c(isg3i5^f8muu=hm95-r^&di0ziko3s*(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -82,6 +82,11 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,10 +131,34 @@ MESSAGE_TAGS ={
 }
 
 
-SENDGRID_API_KEY = os.getenv('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')
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_USER = 'apikey' 
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+if not DEBUG:
+    CORS_REPLACE_HTTPS_REFERER      = True
+    HOST_SCHEME                     = "https://"
+    SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT             = True
+    SESSION_COOKIE_SECURE           = True
+    CSRF_COOKIE_SECURE              = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
+    SECURE_HSTS_SECONDS             = 1000000
+    SECURE_FRAME_DENY               = True
+    SECURE_CONTENT_TYPE_NOSNIFF     = True
+    SECURE_BROWSER_XSS_FILTER       = True
+    SECURE_HSTS_PRELOAD             = True
