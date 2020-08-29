@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} reciever {% endblock %}
+{% block recieveractive %} active{% endblock recieveractive %}
+{% block body %}
+
+<style>
+    .container1{
+        margin: 15px;
+    }
+</style>
+<h3>Blood Reciever Details</h3>
+{% for reciever in BloodReciever %}
+    <div class="container1">
+        <h6> Name : {{reciever.person_name}} </h6>
+     
+      
+        <small>Gender : {{reciever.person_gender}}</small><br>
+        <small>Blood Group: {{reciever.person_bloodGroup}}</small><br>
+        <small>Reason: {{reciever.person_reason}}</small><br>
+        <small>Date amd Time of donation</small>
+    </div>
+    {% endfor %}
+     
+{% endblock %}

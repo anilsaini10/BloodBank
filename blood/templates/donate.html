@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} donater {% endblock %}
+{% block donateactive %} active {% endblock donateactive %}
+
+{% block body %}
+
+{% load static %}
+
+<style>
+
+.container1{
+  margin: 10px;
+  margin-top: 20px;
+  padding: 15px;
+  width: 50%;
+  
+  /* border: 3px solid black;
+  border-radius: 20px; */
+}
+
+  
+</style>
+  <div >
+    {% for allBloodNeedPerson in AllBloodNeedPerson %}
+    <div class="container1">
+     
+      <h3 class="mb-1">Name : {{allBloodNeedPerson.person_name}}</h3>
+      <small>Gender : {{allBloodNeedPerson.person_gender}}</small><br>
+      <small>Blood Group: {{allBloodNeedPerson.person_bloodGroup}}</small><br>
+      <small>Date amd Time of donation</small>
+      <a class="" href="{% url 'persondetails' allBloodNeedPerson.id %}">More Detail</a>
+    </a>
+  </div>
+ 
+    {% endfor %}
+</div>
+
+{% endblock %}

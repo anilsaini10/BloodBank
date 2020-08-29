@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Person Details {% endblock %}
+{% block donateactive %} active {% endblock donateactive %}
+
+{% block body %}
+
+<style>
+.container1{
+    margin: 10px;
+    padding: 10px;
+}
+input{
+    margin: 10px;
+}
+</style>
+
+<div class="container1">
+
+    
+    <h3>Person Details :</h3>
+    <h6>The Person is : {{personName.person_name}}</h6>
+    <h6>ID : {{personName.person_gender}}</h6>
+    <h6>ID : {{personName.person_bloodGroup}}</h6>
+    <h6>ID : {{personName.person_email}}</h6>
+    <h6>ID : {{personName.person_mobileNumber}}</h6>
+    
+    
+    <a class=" " href="{% url 'donateform' personName.id %}">Donate</a>
+   
+</div>
+
+ 
+   <form action="{% url 'persondetails' personName.id  %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="delete">
+    
+  </form>
+
+{% endblock %}

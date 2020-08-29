@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %} need blood {% endblock %}
+{% block needBloodactive %} active {% endblock needBloodactive %}
+
+{% block body %}
+{% load static %}
+
+<style>
+   /* body{
+    background-image: url("{% static 'img/2.jpg' %}");
+    background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.8;
+ 
+} */
+
+    .container{
+        /* background-image: url("{% static 'img/5.jpg' %}"); */
+       
+        border: 3px solid red;
+        width: 60%;
+        margin: 130px;
+        padding: 40px;
+        border-radius: 50px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        
+    }
+    .a input {
+        margin: 10px;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        font-size: 25px;
+        border-radius: 20px;
+    }
+    .submit{
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 20px;
+        
+    }
+   
+
+    
+</style>
+<div class="container">
+    <h1>Fill Your Details Here</h1>
+    <form action="{% url 'needBlood' %}" method="POST">
+        {% csrf_token %}
+        <div class="a">
+            <input type="text" name="name" placeholder="enter full name">
+        </div>
+        <div class="a">
+            <input type="email" name="email" placeholder="enter email ">
+        </div>
+        <div class="a">
+            <input type="tel" name="mobileNumber" placeholder="enter mobile number">
+        </div>
+        <div class="a">
+            <input type="number" name="age" placeholder="enter age">
+        </div>
+        <div class="a">
+            <input type="text" name="reason" placeholder="why u need blood (reason?)">
+        </div>
+        <div class="a">
+            <input type="text" name="address" placeholder="enter address">
+        </div>
+
+        <p>Please select your gender:</p>
+
+        <input type="radio"id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label><br>
+
+        <input type="radio" id="transgender" name="gender" value="transgender">
+        <label for="transgender">Transgender</label><br>
+
+
+        <p>Please select your blood group:</p>
+
+        <input type="radio" id="ap" name="bloodGroup" value="A+">
+        <label for="ap">A+</label><br>
+
+        <input type="radio" id="an" name="bloodGroup" value="A-">
+        <label for="an">A-</label><br>
+
+        <input type="radio" id="bp" name="bloodGroup" value="B+">
+        <label for="bp">B+</label><br>
+
+        <input type="radio" id="bn" name="bloodGroup" value="B-">
+        <label for="bn">B-</label><br>
+
+        <input type="radio" id="abp" name="bloodGroup" value="AB+">
+        <label for="abp">AB+</label><br>
+
+        <input type="radio" id="ab-" name="bloodGroup" value="AB-">
+        <label for="ab-">AB-</label><br>
+
+        <input type="radio" id="op" name="bloodGroup" value="O+">
+        <label for="op">O+</label><br>
+
+        <input type="radio" id="on" name="bloodGroup" value="O-">
+        <label for="on">O-</label><br>
+
+        {% if user.is_authenticated %}
+        <input type="submit" class="submit" value="submit">
+     {% else %}
+     <h4>Need to SignIn </h4>
+          <a class="btn btn-primary mx-2" href="{% url 'handleLogin' %}">Login</a>
+          <a class="btn btn-primary" href="{% url 'handleSignUp' %}">Sign Up</a>
+      {% endif %}
+       
+        <!-- <input type="submit" class="submit" value="submit"> -->
+        <!-- <input type="submit" class="submit">submit</input>  -->
+
+    </form>
+</div>
+{% endblock %}
