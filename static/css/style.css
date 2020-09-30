@@ -6,15 +6,15 @@ color: white;
 }
 
 a{
-color: red;
+color: green;
 }
 
 .form-donate{
-    border: 3px solid red;
-    width: 60%;
+    border: 2px solid red;
+    width: 70%;
     margin: 50px;
     padding: 15px;
-    border-radius: 50px;
+    border-radius: 30px;
     
 }
 .a input {
