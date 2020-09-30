@@ -13,8 +13,57 @@
 
   <title>{% block title %} {% endblock %}</title>
 </head>
+      <style>
+        .navbar{
+            background-color: black;
+            border-radius: 30px;
+        }
+        .navbar ul{
+            overflow: auto;
+        }
+        .navbar li{
+            color: red;
+            float: left;
+            list-style: none;
+            padding: 3px 5px;
+            margin: 15px 20px;
+        }
+        .navbar li a{
+            padding: 4px 6px;
+        }
+        .navbar li a:hover{
+            color: white;
+            border-radius: 20px;
+            background-color: red;
+        }
+        .search{
+            float: right;
+        }
+        .navbar input{
+            border-radius: 15px;
+            background-color: white;
+            margin: 15px;
+            border: 3px solid red;
+            padding: 3px;
+            margin-right: 25px;
+            width: 110px;
+      }
+    </style>
 
 <body>
+   <header>
+        <nav class="navbar">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Your Account</a></li>
+                <li><a>Contact</a></li>
+                <li><a>About</a></li>
+                <div class="search">
+                    <input type="text" name="search" id="search" placeholder="search website">
+                </div>
+            </ul>
+        </nav>
+    </header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'home' %}">Blood Bank</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
